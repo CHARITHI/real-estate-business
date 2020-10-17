@@ -8,5 +8,6 @@ namespace real_estate_business.Models
 {
     public class BusinessContext: DbContext
     {
+
     }
 }
