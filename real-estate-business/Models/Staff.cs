@@ -18,5 +18,6 @@ namespace real_estate_business.Models
         public int Salary { get; set; }
         [ForeignKey("Branch")]
         public String Branch_BranchNoRef { get; set; }
+        public virtual Branch Branch { get; set; }
     }
 }
