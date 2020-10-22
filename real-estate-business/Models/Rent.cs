@@ -7,9 +7,12 @@ using System.Web;
 
 namespace real_estate_business.Models
 {
+    [Table("Rent_tbl")]
     public class Rent
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+
         public String PropertyNo { get; set; }
         public String Street { get; set; }
         public String City { get; set; }
@@ -28,6 +31,6 @@ namespace real_estate_business.Models
         public String BranchNoRef { get; set; }
         public virtual Branch Branch { get; set; }
 
-        public String Rent1 { get; set; }
+        public int Rent1 { get; set; }
     }
 }
