@@ -58,5 +58,11 @@ namespace real_estate_business.Controllers
             businessContext.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult Delete(String id)
+        {
+            Branch branch = businessContext.Branches.SingleOrDefault(x => x.BranchNo == id);
+            return View(branch);
+        }
     }
 }
