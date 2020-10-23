@@ -35,7 +35,7 @@ namespace real_estate_business.Controllers
             }
         }
 
-             public ActionResult Details(String id)
+         public ActionResult Details(String id)
         {
             Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
             return View(staff);
@@ -62,7 +62,20 @@ namespace real_estate_business.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Delete(String id)
+        {
+            Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
+            return View(staff);
+        }
 
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteStaff(String id)
+        {
+            Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
+            businessContext.Staffs.Add(staff);
+            businessContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
     }
 

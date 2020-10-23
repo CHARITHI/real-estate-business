@@ -65,5 +65,21 @@ namespace real_estate_business.Controllers
             businessContext.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult Delete(String id)
+        {
+            Rent rent = businessContext.Rents.SingleOrDefault(x => x.PropertyNo == id);
+            return View(rent);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteStaff(String id)
+        {
+            Rent rent = businessContext.Rents.SingleOrDefault(x => x.PropertyNo == id);
+            businessContext.Rents.Add(rent);
+            businessContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

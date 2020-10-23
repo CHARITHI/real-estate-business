@@ -34,7 +34,7 @@ namespace real_estate_business.Controllers
                 businessContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+        }
              public ActionResult Details(String id)
         {
             Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);
@@ -60,6 +60,19 @@ namespace real_estate_business.Controllers
             return RedirectToAction("Index");
         }
 
-    
+        public ActionResult Delete(String id)
+        {
+            Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);
+            return View(owner);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteOwner(String id)
+        {
+            Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);
+            businessContext.Owners.Add(owner);
+            businessContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
