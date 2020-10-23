@@ -25,6 +25,7 @@ namespace real_estate_business.Controllers
           return View();
         }
 
+        [HttpPost]
         public ActionResult Create(Rent rent)
         {
            
@@ -34,7 +35,12 @@ namespace real_estate_business.Controllers
                 return RedirectToAction("Index");
             }
       
-            
+          }
+
+        public ActionResult Details(String id)
+        {
+            Rent rent = businessContext.Rents.SingleOrDefault(x => x.PropertyNo == id);
+            return View(rent);
         }
     }
 }

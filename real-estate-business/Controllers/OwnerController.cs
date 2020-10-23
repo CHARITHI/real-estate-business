@@ -25,6 +25,7 @@ namespace real_estate_business.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Create(Owner owner)
         {
 
@@ -34,7 +35,12 @@ namespace real_estate_business.Controllers
                 return RedirectToAction("Index");
             }
 
-
+             public ActionResult Details(String id)
+        {
+            Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);
+            return View(owner);
         }
+
+    }
     }
 }

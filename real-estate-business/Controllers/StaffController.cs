@@ -24,6 +24,7 @@ namespace real_estate_business.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Create(Staff staff)
         {
 
@@ -33,7 +34,12 @@ namespace real_estate_business.Controllers
                 return RedirectToAction("Index");
             }
 
-
+             public ActionResult Details(String id)
+        {
+            Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
+            return View(staff);
         }
+
+    }
     }
 }

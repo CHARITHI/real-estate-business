@@ -24,7 +24,7 @@ namespace real_estate_business.Controllers
 
             return View();
         }
-
+        [HttpPost]
         public ActionResult Create(Branch branch)
         {
 
@@ -33,8 +33,12 @@ namespace real_estate_business.Controllers
                 businessContext.SaveChanges();
                 return RedirectToAction("Index");
             }
+         }
 
-
+        public ActionResult Details(String id)
+        {
+            Branch branch = businessContext.Branches.SingleOrDefault(x => x.BranchNo == id);
+            return View(branch);
         }
     }
 }
