@@ -14,8 +14,8 @@ namespace real_estate_business.Controllers
         // GET: Branch
         public ActionResult Index()
         {
-            List<Branch> BranchDetails = businessContext.Branches.ToList();
-            return View(BranchDetails);
+            List<Branch> BranchList = businessContext.Branches.ToList();
+            return View(BranchList);
             
         }
 
@@ -39,6 +39,24 @@ namespace real_estate_business.Controllers
         {
             Branch branch = businessContext.Branches.SingleOrDefault(x => x.BranchNo == id);
             return View(branch);
+        }
+
+        public ActionResult Edit(String id)
+        {
+            Branch branch = businessContext.Branches.SingleOrDefault(x => x.BranchNo == id);
+            ViewBag.Branchdetails = new SelectList(businessContext.Branches, "BranchNo");
+            return View(branch);
+        }
+
+        public ActionResult Edit(String id,Branch updatedBranches)
+        {
+            Branch branch = businessContext.Branches.SingleOrDefault(x => x.BranchNo == id);
+            branch.BranchNo = updatedBranches.BranchNo;
+            branch.Street = updatedBranches.Street;
+            branch.City = updatedBranches.City;
+            branch.PostCode = updatedBranches.PostCode;
+            businessContext.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

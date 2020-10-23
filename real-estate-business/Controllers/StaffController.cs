@@ -14,8 +14,8 @@ namespace real_estate_business.Controllers
         // GET: Staff
         public ActionResult Index()
         {
-            List<Staff> StaffDetails = businessContext.Staffs.ToList();
-            return View(StaffDetails);
+            List<Staff> StaffList = businessContext.Staffs.ToList();
+            return View(StaffList);
         }
 
         public ActionResult Create()
@@ -33,6 +33,7 @@ namespace real_estate_business.Controllers
                 businessContext.SaveChanges();
                 return RedirectToAction("Index");
             }
+        }
 
              public ActionResult Details(String id)
         {
@@ -40,6 +41,29 @@ namespace real_estate_business.Controllers
             return View(staff);
         }
 
+        public ActionResult Edit(String id)
+        {
+            Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
+            ViewBag.Staffdetails = new SelectList(businessContext.Staffs, "StaffNo");
+            return View(staff);
+        }
+
+        public ActionResult Edit(String id, Staff updatedBranches)
+        {
+            Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
+            staff.StaffNo = updatedBranches.StaffNo;
+            staff.Fname = updatedBranches.Fname;
+            staff.Lname = updatedBranches.Lname;
+            staff.Position = updatedBranches.Position;
+            staff.DOB = updatedBranches.DOB;
+            staff.Salary = updatedBranches.Salary;
+            staff.Branch_BranchNoRef = updatedBranches.Branch_BranchNoRef;
+            businessContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+
     }
-    }
+
 }

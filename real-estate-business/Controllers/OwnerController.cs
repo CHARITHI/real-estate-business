@@ -14,8 +14,8 @@ namespace real_estate_business.Controllers
         // GET: Owner
         public ActionResult Index()
         {
-            List<Owner> OwnerDetails = businessContext.Owners.ToList();
-            return View(OwnerDetails);
+            List<Owner> OwnerList = businessContext.Owners.ToList();
+            return View(OwnerList);
             
         }
 
@@ -41,6 +41,25 @@ namespace real_estate_business.Controllers
             return View(owner);
         }
 
-    }
+        public ActionResult Edit(String id)
+        {
+            Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);
+            ViewBag.Ownerdetails = new SelectList(businessContext.Owners, "OwnerNo");
+            return View(owner);
+        }
+
+        public ActionResult Edit(String id, Owner updatedBranches)
+        {
+            Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);
+            owner.OwnerNo = updatedBranches.OwnerNo;
+            owner.Fname = updatedBranches.Fname;
+            owner.Lname = updatedBranches.Lname;
+            owner.Address = updatedBranches.Address;
+            owner.TelNo = updatedBranches.TelNo;
+            businessContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+    
     }
 }
