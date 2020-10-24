@@ -20,7 +20,7 @@ namespace real_estate_business.Controllers
 
         public ActionResult Create()
         {
-
+            ViewBag.BranchDetails = businessContext.Branches;
             return View();
         }
 
@@ -28,11 +28,12 @@ namespace real_estate_business.Controllers
         public ActionResult Create(Staff staff)
         {
 
-            {
+                 ViewBag.BranchDetails = businessContext.Branches;
+                ViewBag.StaffDetails = businessContext.Staffs;
                 businessContext.Staffs.Add(staff);
                 businessContext.SaveChanges();
                 return RedirectToAction("Index");
-            }
+            
         }
 
          public ActionResult Details(String id)
@@ -44,20 +45,20 @@ namespace real_estate_business.Controllers
         public ActionResult Edit(String id)
         {
             Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
-            ViewBag.Staffdetails = new SelectList(businessContext.Staffs, "StaffNo");
+            ViewBag.BranchDetails = new SelectList(businessContext.Branches, "BranchNo", " BranchNo");
             return View(staff);
         }
 
-        public ActionResult Edit(String id, Staff updatedBranches)
+        public ActionResult Edit(String id, Staff updatedStaff)
         {
             Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
-            staff.StaffNo = updatedBranches.StaffNo;
-            staff.Fname = updatedBranches.Fname;
-            staff.Lname = updatedBranches.Lname;
-            staff.Position = updatedBranches.Position;
-            staff.DOB = updatedBranches.DOB;
-            staff.Salary = updatedBranches.Salary;
-            staff.Branch_BranchNoRef = updatedBranches.Branch_BranchNoRef;
+            staff.StaffNo = updatedStaff.StaffNo;
+            staff.Fname = updatedStaff.Fname;
+            staff.Lname = updatedStaff.Lname;
+            staff.Position = updatedStaff.Position;
+            staff.DOB = updatedStaff.DOB;
+            staff.Salary = updatedStaff.Salary;
+            staff.Branch_BranchNoRef = updatedStaff.Branch_BranchNoRef;
             businessContext.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -72,9 +73,47 @@ namespace real_estate_business.Controllers
         public ActionResult DeleteStaff(String id)
         {
             Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
-            businessContext.Staffs.Add(staff);
+            businessContext.Staffs.Remove(staff);
             businessContext.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult position()
+        {
+
+            var AllStaff = businessContext.Staffs.ToList();
+
+            
+
+            int x = 0;
+            int y = 0;
+
+
+            foreach (Staff staff in AllStaff)
+            {
+                x = x + 1;
+
+            }
+
+            string[] pos = new string[x];
+
+            foreach (Staff staff in AllStaff)
+            {
+                pos[y] = staff.Position;
+                y = y + 1;
+
+            }
+
+            var distinctArray = pos.Distinct().ToArray();
+            ViewBag.position = distinctArray;
+
+            return View();
+        }
+
+        public ActionResult position1(string pos)
+        {
+            List<Staff> staff = businessContext.Staffs.Where(x => x.Position == pos).ToList();
+            return View(staff);
         }
 
     }

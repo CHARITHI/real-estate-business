@@ -11,6 +11,7 @@ namespace real_estate_business.Models
     public class Owner
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public String OwnerNo { get; set; }
         public String Fname { get; set; }
         public String Lname { get; set; }

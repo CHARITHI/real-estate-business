@@ -22,17 +22,18 @@ namespace real_estate_business.Controllers
         public ActionResult Create()
         {
 
+            ViewBag.BranchDetails = businessContext.Branches;
             return View();
         }
         [HttpPost]
         public ActionResult Create(Branch branch)
         {
 
-            {
-                businessContext.Branches.Add(branch);
-                businessContext.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            ViewBag.BranchDetails = businessContext.Branches;
+            businessContext.Branches.Add(branch);
+            businessContext.SaveChanges();
+            return RedirectToAction("Index");
+            
          }
 
         public ActionResult Details(String id)
@@ -44,7 +45,7 @@ namespace real_estate_business.Controllers
         public ActionResult Edit(String id)
         {
             Branch branch = businessContext.Branches.SingleOrDefault(x => x.BranchNo == id);
-            ViewBag.Branchdetails = new SelectList(businessContext.Branches, "BranchNo");
+           // ViewBag.BranchDetails = new SelectList(businessContext.Branches, "BranchNo", "Name");
             return View(branch);
         }
 
@@ -69,9 +70,25 @@ namespace real_estate_business.Controllers
         public ActionResult DeleteBranch(String id)
         {
             Branch branch = businessContext.Branches.SingleOrDefault(x => x.BranchNo == id);
-            businessContext.Branches.Add(branch);
+            businessContext.Branches.Remove(branch);
             businessContext.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Branch()
+        {
+            List<Branch> AllBranch = businessContext.Branches.ToList();
+
+            return View(AllBranch);
+        }
+
+        public ActionResult Branch1(String id)
+        {
+
+
+            var rent = businessContext.Rents.Where(x => x.BranchNoRef == id).ToList().Count();
+            ViewBag.count = rent;
+            return View();
         }
     }
 }

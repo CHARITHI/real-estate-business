@@ -21,19 +21,24 @@ namespace real_estate_business.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.BranchDetails = businessContext.Branches;
+            ViewBag.StaffDetails = businessContext.Staffs;
+            ViewBag.OwnerDetails = businessContext.Owners;
 
-          return View();
+            return View();
         }
 
         [HttpPost]
         public ActionResult Create(Rent rent)
         {
-           
-            {
-                businessContext.Rents.Add(rent);
+
+            ViewBag.BranchDetails = businessContext.Branches;
+            ViewBag.StaffDetails = businessContext.Staffs;
+            ViewBag.OwnerDetails = businessContext.Owners;
+            businessContext.Rents.Add(rent);
                 businessContext.SaveChanges();
                 return RedirectToAction("Index");
-            }
+            
       
           }
 
@@ -46,22 +51,24 @@ namespace real_estate_business.Controllers
         public ActionResult Edit(String id)
         {
             Rent rent = businessContext.Rents.SingleOrDefault(x => x.PropertyNo == id);
-            ViewBag.Rentdetails = new SelectList(businessContext.Rents, "PropertyNo");
+            ViewBag.BranchDetails = new SelectList(businessContext.Branches, "BranchNo", "Street");
+            ViewBag.StaffDetails = new SelectList(businessContext.Staffs, "StaffNo", "Fname");
+            ViewBag.OwnerDetails = new SelectList(businessContext.Owners, "OwnerNo", "Fname");
             return View(rent);
         }
 
-        public ActionResult Edit(String id, Rent updatedBranches)
+        public ActionResult Edit(String id, Rent updatedRent)
         {
             Rent rent = businessContext.Rents.SingleOrDefault(x => x.PropertyNo == id);
-            rent.PropertyNo = updatedBranches.PropertyNo;
-            rent.Street = updatedBranches.Street;
-            rent.City = updatedBranches.City;
-            rent.Ptype = updatedBranches.Ptype;
-            rent.Rooms = updatedBranches.Rooms;
-            rent.OwnerNoRef = updatedBranches.OwnerNoRef;
-            rent.StaffNoRef = updatedBranches.StaffNoRef;
-            rent.BranchNoRef = updatedBranches.BranchNoRef;
-            rent.Rent1 = updatedBranches.Rent1;
+            rent.PropertyNo = updatedRent.PropertyNo;
+            rent.Street = updatedRent.Street;
+            rent.City = updatedRent.City;
+            rent.Ptype = updatedRent.Ptype;
+            rent.Rooms = updatedRent.Rooms;
+            rent.OwnerNoRef = updatedRent.OwnerNoRef;
+            rent.StaffNoRef = updatedRent.StaffNoRef;
+            rent.BranchNoRef = updatedRent.BranchNoRef;
+            rent.Rent1 = updatedRent.Rent1;
             businessContext.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -76,10 +83,49 @@ namespace real_estate_business.Controllers
         public ActionResult DeleteStaff(String id)
         {
             Rent rent = businessContext.Rents.SingleOrDefault(x => x.PropertyNo == id);
-            businessContext.Rents.Add(rent);
+            businessContext.Rents.Remove(rent);
             businessContext.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult city()
+        {
+
+            var Allcity = businessContext.Rents.ToList();
+
+
+            int x = 0;
+            int y = 0;
+
+
+            foreach (Rent rent in Allcity)
+            {
+                x = x + 1;
+
+            }
+
+            string[] pos = new string[x];
+
+            foreach (Rent rent in Allcity)
+            {
+                pos[y] = rent.City;
+                y = y + 1;
+
+            }
+
+            var distinctArray = pos.Distinct().ToArray();
+            ViewBag.city = distinctArray;
+
+
+            return View();
+        }
+
+        public ActionResult citynw(string cy)
+        {
+            List<Rent> rent = businessContext.Rents.Where(x => x.City == cy).ToList();
+            return View(rent);
+        }
+
 
     }
 }

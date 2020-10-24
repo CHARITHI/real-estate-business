@@ -21,7 +21,7 @@ namespace real_estate_business.Controllers
 
         public ActionResult Create()
         {
-
+            ViewBag.OwnerDetails = businessContext.Owners;
             return View();
         }
 
@@ -44,18 +44,18 @@ namespace real_estate_business.Controllers
         public ActionResult Edit(String id)
         {
             Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);
-            ViewBag.Ownerdetails = new SelectList(businessContext.Owners, "OwnerNo");
+           // ViewBag.Ownerdetails = new SelectList(businessContext.Owners, "OwnerNo");
             return View(owner);
         }
 
-        public ActionResult Edit(String id, Owner updatedBranches)
+        public ActionResult Edit(String id, Owner updatedOwner)
         {
             Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);
-            owner.OwnerNo = updatedBranches.OwnerNo;
-            owner.Fname = updatedBranches.Fname;
-            owner.Lname = updatedBranches.Lname;
-            owner.Address = updatedBranches.Address;
-            owner.TelNo = updatedBranches.TelNo;
+            owner.OwnerNo = updatedOwner.OwnerNo;
+            owner.Fname = updatedOwner.Fname;
+            owner.Lname = updatedOwner.Lname;
+            owner.Address = updatedOwner.Address;
+            owner.TelNo = updatedOwner.TelNo;
             businessContext.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -70,7 +70,7 @@ namespace real_estate_business.Controllers
         public ActionResult DeleteOwner(String id)
         {
             Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);
-            businessContext.Owners.Add(owner);
+            businessContext.Owners.Remove(owner);
             businessContext.SaveChanges();
             return RedirectToAction("Index");
         }
