@@ -47,7 +47,7 @@ namespace real_estate_business.Controllers
            // ViewBag.Ownerdetails = new SelectList(businessContext.Owners, "OwnerNo");
             return View(owner);
         }
-
+        [HttpPost]
         public ActionResult Edit(String id, Owner updatedOwner)
         {
             Owner owner = businessContext.Owners.SingleOrDefault(x => x.OwnerNo == id);

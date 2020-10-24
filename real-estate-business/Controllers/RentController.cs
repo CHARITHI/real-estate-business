@@ -56,7 +56,7 @@ namespace real_estate_business.Controllers
             ViewBag.OwnerDetails = new SelectList(businessContext.Owners, "OwnerNo", "Fname");
             return View(rent);
         }
-
+        [HttpPost]
         public ActionResult Edit(String id, Rent updatedRent)
         {
             Rent rent = businessContext.Rents.SingleOrDefault(x => x.PropertyNo == id);
@@ -120,9 +120,9 @@ namespace real_estate_business.Controllers
             return View();
         }
 
-        public ActionResult citynw(string cy)
+        public ActionResult citynw(string cty)
         {
-            List<Rent> rent = businessContext.Rents.Where(x => x.City == cy).ToList();
+            List<Rent> rent = businessContext.Rents.Where(x => x.City == cty).ToList();
             return View(rent);
         }
 

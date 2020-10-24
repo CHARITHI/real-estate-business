@@ -183,6 +183,11 @@
     <Content Include="Views\Rent\Details.cshtml" />
     <Content Include="Views\Rent\Create.cshtml" />
     <Content Include="Views\Rent\Edit.cshtml" />
+    <Content Include="Views\Rent\Delete.cshtml" />
+    <Content Include="Views\Rent\city.cshtml" />
+    <Content Include="Views\Rent\citynw.cshtml" />
+    <Content Include="Views\Staff\position.cshtml" />
+    <Content Include="Views\Staff\positionFind.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

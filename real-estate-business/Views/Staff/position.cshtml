@@ -1,0 +1,23 @@
+﻿@model real_estate_business.Models.Staff
+@using real_estate_business.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>position</title>
+</head>
+<body>
+    @{   foreach (string i in ViewBag.position)
+        {
+            <h3>@Html.ActionLink(i, "positionFind", new { pos = i })</h3>
+
+            }
+        }
+</body>
+</html>

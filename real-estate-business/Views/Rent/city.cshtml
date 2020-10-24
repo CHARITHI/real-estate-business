@@ -1,0 +1,23 @@
+﻿@model real_estate_business.Models.Rent
+@using real_estate_business.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>city</title>
+</head>
+<body>
+   @{   foreach(string i in ViewBag.city)
+           {
+           <h3>@Html.ActionLink(i,"citynw",  new { cty = i})</h3>
+
+            }
+
+    }
+</body>
+</html>

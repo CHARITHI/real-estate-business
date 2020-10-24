@@ -48,7 +48,7 @@ namespace real_estate_business.Controllers
             ViewBag.BranchDetails = new SelectList(businessContext.Branches, "BranchNo", " BranchNo");
             return View(staff);
         }
-
+        [HttpPost]
         public ActionResult Edit(String id, Staff updatedStaff)
         {
             Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
@@ -110,7 +110,7 @@ namespace real_estate_business.Controllers
             return View();
         }
 
-        public ActionResult position1(string pos)
+        public ActionResult positionFind(string pos)
         {
             List<Staff> staff = businessContext.Staffs.Where(x => x.Position == pos).ToList();
             return View(staff);
