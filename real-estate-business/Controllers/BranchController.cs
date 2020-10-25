@@ -81,13 +81,16 @@ namespace real_estate_business.Controllers
             List<Branch> AllBranch = businessContext.Branches.ToList();
 
             return View(AllBranch);
-        }
 
-        public ActionResult Branch1(String id)
+           
+        }
+    
+
+        public ActionResult Branchnw(string bul)
         {
 
 
-            var rent = businessContext.Rents.Where(x => x.BranchNoRef == id).ToList().Count();
+            var rent = businessContext.Rents.Where(x => x.BranchNoRef == bul).ToList().Count();
             ViewBag.count = rent;
             return View();
         }

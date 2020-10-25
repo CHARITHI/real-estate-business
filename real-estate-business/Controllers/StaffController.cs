@@ -45,7 +45,7 @@ namespace real_estate_business.Controllers
         public ActionResult Edit(String id)
         {
             Staff staff = businessContext.Staffs.SingleOrDefault(x => x.StaffNo == id);
-            ViewBag.BranchDetails = new SelectList(businessContext.Branches, "BranchNo", " BranchNo");
+            ViewBag.BranchDetails = new SelectList(businessContext.Branches, "BranchNo", "Street");
             return View(staff);
         }
         [HttpPost]

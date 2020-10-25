@@ -188,6 +188,8 @@
     <Content Include="Views\Rent\citynw.cshtml" />
     <Content Include="Views\Staff\position.cshtml" />
     <Content Include="Views\Staff\positionFind.cshtml" />
+    <Content Include="Views\Branch\Branch.cshtml" />
+    <Content Include="Views\Branch\Branchnw.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
